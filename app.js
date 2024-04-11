@@ -67,7 +67,7 @@ const App = {
 			await connectDatabase();
 			app.use(handleError);
 			app.listen(PORT, () => {
-				console.log(`[ERP-API] se ejecuta en http://localhost:${PORT}`);
+				console.log(`[Vue-API] se ejecuta en monorail.proxy.rlwy.net:24620 en el puerto ${PORT}`);
 			});
 		}
 
