@@ -7,7 +7,7 @@ import morgan from 'morgan';
 import catRoutes from './src/routes/catalogos.busquedas.routes.js';
 
 // Base de datos
-import { Connection } from './src/database/mariadb.database.js';
+import { Connection } from './src/database/mysql.database.js';
 
 // Swagger
 

@@ -1,4 +1,3 @@
-/* import { Connection as sequelize } from '../database/mariadb.database.js'; */
 import { Op } from 'sequelize';
 import { Moneda } from '../models/sat.moneda.js';
 
