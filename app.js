@@ -34,6 +34,9 @@ const App = {
 		// Rutas
 
 		app.use('/api/v1/catalogo', catRoutes);
+		app.use('/api/v1/test', (req, res) => {
+			res.status(200).json({ message: 'Test' });
+		});
 		app.use('/', (req, res) => {
 			res.status(404).json({message:'Request not found'})
 		});

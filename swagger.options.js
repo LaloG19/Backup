@@ -9,7 +9,7 @@ export const options = {
 		servers: [
 
 			{
-				url: 'http://localhost:3000',
+				url: 'https://backup-production-9704.up.railway.app',
 			}
 
 		],

@@ -92,7 +92,7 @@ $ npm run lint
 
 #### Una vez la aplicacon se este ejecutando debe entrar en la siguiente URL:
 
-    http://localhost:3000/docs
+    https://backup-production-9704.up.railway.app/docs/
 
 
 
