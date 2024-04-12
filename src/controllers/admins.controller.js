@@ -13,7 +13,7 @@ const getAdmins = async (req, res) => {
 
 const loginAdmin = async (req, res) => {
 	const { user, password } = req.body;
-
+	console.log('Datos recibidos: \n User: ' + user + '\n Password: ' + password);
 	try {
 		const data = await Admin.findOne({
 			where: {
