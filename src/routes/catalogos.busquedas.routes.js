@@ -8,11 +8,8 @@ const router = Router();
 /**
  * @swagger
  * tags:
- *
  *   - name: Metodos de pago
  *     description: Metodos de pago
- *
- *
  */
 
 /**
