@@ -12,3 +12,10 @@ export const formDepartmentSchema = [
         .isString()
         .withMessage('La descripción debe ser de tipo texto'),
 ];
+
+export const deleteDepartmentSchema = [
+    body('departmentID')
+        .notEmpty()
+        .isIntenger()
+        .withMessage('Se requiere un departamento existente')
+];

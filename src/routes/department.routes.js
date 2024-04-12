@@ -1,6 +1,9 @@
 import { Router } from 'express';
 import { methods } from '../controllers/departments.controllers.js';
 
+import * as middleware from '../middlewares/express-validator.js';
+import * as schemas from '../schemas/department.js';
+
 const router = Router();
 
 /** 
@@ -32,7 +35,7 @@ const router = Router();
  *       500:
  *         description: Error al obtener los datos
  */
-router.get('/departamentos/', methods.getDepartments)
+router.get('/departamentos/', methods.getDepartments);
 
 /**
  * @swagger
@@ -60,7 +63,7 @@ router.get('/departamentos/', methods.getDepartments)
  *       500:
  *         description: Error al obtener el departamento
  */
-router.get('/departamentos/:departmenName', methods.findDepartmentByName)
+router.get('/departamentos/:departmenName', methods.findDepartmentByName);
 
 /**
  * @swagger
@@ -95,7 +98,11 @@ router.get('/departamentos/:departmenName', methods.findDepartmentByName)
  *       500:
  *         description: Error interno al crear el departamento
  */
-router.post('/departamentos/crear', methods.createDepartment)
+router.post('/departamentos/crear', 
+    schemas.formDepartmentSchema,
+    middleware.validateSchema,
+    methods.createDepartment, 
+);
 
 /**
  * @swagger
@@ -137,7 +144,11 @@ router.post('/departamentos/crear', methods.createDepartment)
  *       500:
  *         description: Error interno al modificar el departamento
  */
-router.patch('/departamentos/modificar/:id', methods.updateDepartment)
+router.patch('/departamentos/modificar/:id',
+    schemas.formDepartmentSchema,
+    middleware.validateSchema,
+    methods.updateDepartment
+);
 
 /**
  * @swagger
@@ -160,6 +171,10 @@ router.patch('/departamentos/modificar/:id', methods.updateDepartment)
  *       500:
  *         description: Error interno al eliminar el departamento
  */
-router.delete('/departamentos/eliminar/:id', methods.deleteDepartment)
+router.delete('/departamentos/eliminar/:id', 
+    schemas.deleteDepartmentSchema,
+    middleware.validateSchema,
+    methods.deleteDepartment
+);
 
 export default router;
