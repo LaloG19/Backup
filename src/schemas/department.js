@@ -2,20 +2,21 @@ import { body } from "express-validator";
 
 export const formDepartmentSchema = [
     body('name')
-        .notEmpty()
-        .withMessage('El nombre del departamento es obligatorio')
         .isString()
-        .withMessage('El nombre debe ser de tipo texto'),
+        .withMessage('El nombre debe ser de tipo texto')
+        .notEmpty()
+        .withMessage('El nombre del departamento es obligatorio'),
     body('description')
-        .notEmpty()
-        .withMessage('La descripción es obligatorio')
         .isString()
-        .withMessage('La descripción debe ser de tipo texto'),
+        .withMessage('La descripción debe ser de tipo texto')
+        .notEmpty()
+        .withMessage('La descripción es obligatorio'),
 ];
 
 export const deleteDepartmentSchema = [
     body('departmentID')
-        .notEmpty()
-        .isIntenger()
+        .isInt()
         .withMessage('Se requiere un departamento existente')
+        .notEmpty()
+        .withMessage('Se requiere un departamento'),
 ];
