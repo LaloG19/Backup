@@ -11,7 +11,7 @@ const getDepartments = async (res) =>{
 	}
 };
 
-const getDepartment = async (req, res) =>{
+const findDepartmentByName = async (req, res) =>{
     const name = req.params.name;
     try{
         const department = await Department.findAll({
@@ -100,7 +100,7 @@ const deleteDepartment = async (req, res) =>{
 
 export const methods = {
     getDepartments,
-    getDepartment,
+    findDepartmentByName,
     createDepartment,
     updateDepartment,
     deleteDepartment,

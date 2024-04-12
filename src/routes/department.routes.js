@@ -60,6 +60,106 @@ router.get('/departamentos/', methods.getDepartments)
  *       500:
  *         description: Error al obtener el departamento
  */
-router.get('/departamentos/:departmentID', methods.getDepartment)
+router.get('/departamentos/:departmenName', methods.findDepartmentByName)
+
+/**
+ * @swagger
+ * /api/v1/departamentos/crear:
+ *   post:
+ *     summary: Crear un nuevo departamento
+ *     tags: [Departamentos]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: Nombre del departamento
+ *               description:
+ *                 type: string
+ *                 description: Descripción del departamento
+ *     responses:
+ *       200:
+ *         description: Departamento creado exitosamente
+ *         content:
+ *           application/json:
+ *             example:
+ *               id: 1
+ *               name: "Nuevo Departamento"
+ *               description: "Descripción del nuevo departamento"
+ *       409:
+ *         description: Conflicto, el nombre del departamento ya existe
+ *       500:
+ *         description: Error interno al crear el departamento
+ */
+router.post('/departamentos/crear', methods.createDepartment)
+
+/**
+ * @swagger
+ * /api/v1/departamentos/modificar/{id}:
+ *   patch:
+ *     summary: Modificar un departamento existente
+ *     tags: [Departamentos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del departamento a modificar
+ *         schema:
+ *           type: integer
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: Nuevo nombre del departamento
+ *               description:
+ *                 type: string
+ *                 description: Nueva descripción del departamento
+ *     responses:
+ *       200:
+ *         description: Departamento modificado exitosamente
+ *         content:
+ *           application/json:
+ *             example:
+ *               id: 1
+ *               name: "Departamento modificado"
+ *               description: "Nueva descripción del departamento"
+ *       404:
+ *         description: Departamento no encontrado
+ *       500:
+ *         description: Error interno al modificar el departamento
+ */
+router.patch('/departamentos/modificar/:id', methods.updateDepartment)
+
+/**
+ * @swagger
+ * /api/v1/departamentos/eliminar/{id}:
+ *   delete:
+ *     summary: Eliminar un departamento existente
+ *     tags: [Departamentos]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID del departamento a eliminar
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Departamento eliminado exitosamente
+ *       404:
+ *         description: Departamento no encontrado
+ *       500:
+ *         description: Error interno al eliminar el departamento
+ */
+router.delete('/departamentos/eliminar/:id', methods.deleteDepartment)
 
 export default router;
