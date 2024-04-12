@@ -22,7 +22,7 @@ const loginAdmin = async (req, res) => {
 			},
 		});
 		if (!data) {
-			return res.status(404).json({ error: 'Usuario o contraseña incorrectos' });
+			return res.status(404).json({ error: 'Usuario o contraseña incorrectos: user' + user + ' password: ' + password });
 		}
 		return res.status(200).json(data);
 	}catch (error) {

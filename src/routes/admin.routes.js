@@ -37,7 +37,7 @@ router.get('/', methods.getAdmins);
 /**
  * @swagger
  * /api/v1/admins/login:
- *   patch:
+ *   post:
  *     summary: Validar datos para iniciar sesión
  *     tags: [Admins]
  *     requestBody:
