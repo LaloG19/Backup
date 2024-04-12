@@ -18,10 +18,10 @@ const router = Router();
 
 /**
  * @swagger
- * /api/v1/departments:
+ * /api/v1/departamentos:
  *   get:
  *     summary: Obtener una lista de los departamentos
- *     tags: [Departments]
+ *     tags: [Departamentos]
  *     responses:
  *       200:
  *         description: Lista de departamentos
@@ -39,10 +39,10 @@ router.get('/departamentos/', methods.getDepartments);
 
 /**
  * @swagger
- * /api/v1/departments/{departmentID}:
+ * /api/v1/departamentos/{departmentID}:
  *   get:
  *     summary: Obtener un departamento por ID
- *     tags: [Departments]
+ *     tags: [Departamentos]
  *     parameters:
  *       - in: path
  *         name: departmentID

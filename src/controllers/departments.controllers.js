@@ -1,7 +1,7 @@
 import { Op } from "sequelize";
-import { Department } from "../models/department";
+import { Department } from "../models/department.js";
 
-const getDepartments = async (res) =>{
+const getDepartments = async (req, res) =>{
     try {
 		const data = await Department.findAll();
 		return res.status(200).json(data);
