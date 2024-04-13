@@ -6,7 +6,7 @@ import morgan from 'morgan';
 // Rutas
 import catRoutes from './src/routes/catalogos.busquedas.routes.js';
 import adminRoutes from './src/routes/admin.routes.js';
-// import employeesRoutes from './src/routes/employees.routes.js';
+import employeesRoutes from './src/routes/employees.routes.js';
 
 // Base de datos
 import { Connection } from './src/database/mysql.database.js';
@@ -37,7 +37,7 @@ const App = {
 
 		app.use('/api/v1/catalogo', catRoutes);
 		app.use('/api/v1/admins', adminRoutes);
-		// app.use('/api/v1/employees', employeesRoutes);
+		app.use('/api/v1/employees', employeesRoutes);
 		app.use('/api/v1/test', (req, res) => {
 			res.status(200).json({ message: 'Test' });
 		});
