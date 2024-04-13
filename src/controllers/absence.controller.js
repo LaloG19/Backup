@@ -19,14 +19,28 @@ export const findAbsenceByName = async (req, res) => {
     const name = req.params.name;
 
     try {
-        const absence = await Absence.findAll({
-            include: [{
-                model: Employee,
-                where: {
-                    name: { [Op.like]: `%${name}%` }
+
+        const nameToSearch = await Employee.findOne({
+            where: {
+                name: {
+                    [Op.like]: `%${name}%`
                 }
-            }]
+            }
         });
+
+        if (!nameToSearch) {
+            return res.status(404).json({ error: 'Empleado no encontrado' });
+        }
+
+        const absence = await Absence.findAll({
+            where: {
+                employeeID: nameToSearch.employeeID
+            }
+        });
+
+        if (!absence) {
+            return res.status(404).json({ error: 'El trabajador no tiene ausencias' });
+        }
 
         return res.status(200).json(absence);
     } catch (error) {

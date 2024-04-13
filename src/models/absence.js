@@ -18,7 +18,6 @@ export const Employee = Connection.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
-
     },
     {
         tableName: 'employee', 
@@ -86,7 +85,7 @@ export const Absence = Connection.define(
 );
 
 // Define la relación entre Absences y Employee
-Absence.belongsTo(Employee, { foreignKey: 'employeeID' });
+/* Absence.belongsTo(Employee, { foreignKey: 'employeeID' }); */
 
 // Define la relación entre Absences y Schedule
-Absence.belongsTo(Schedule, { foreignKey: 'scheduleID' });
+/* Absence.belongsTo(Schedule, { foreignKey: 'scheduleID' }); */
