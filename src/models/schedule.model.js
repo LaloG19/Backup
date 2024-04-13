@@ -6,7 +6,6 @@ export const Schedule = Connection.define(
 	{
 		scheduleID: {
 			type: DataTypes.INTEGER,
-			allowNull: false,
 			primaryKey: true,
 			autoIncrement: true,
 		},

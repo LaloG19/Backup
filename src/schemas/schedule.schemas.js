@@ -1,77 +1,80 @@
 import { body } from 'express-validator';
 
 export const createScheduleSchema = [
-	body('EntryTime')
+	body('entryTime')
 		.notEmpty()
 		.withMessage('EntryTime cannot be empty')
 		.isString()
 		.withMessage('The date must be in the format of date'),
-	body('ExitTime')
+	body('exitTime')
 		.notEmpty()
 		.withMessage('ExitTime cannot be empty')
 		.isString()
 		.withMessage('The time must be a text string'),
-	body('Monday').notEmpty().isBoolean().withMessage('Monday must be a boolean'),
-	body('Tuesday')
+	body('monday')
+		.notEmpty()
+		.isBoolean()
+		.withMessage('Monday must be a boolean, false or true'),
+	body('tuesday')
 		.notEmpty()
 		.isBoolean()
 		.withMessage('Tuesday must be a boolean, false or true'),
-	body('Wednesday')
+	body('wednesday')
 		.notEmpty()
 		.isBoolean()
 		.withMessage('Wednesday must be a boolean, false or true'),
-	body('Thursday')
+	body('thursday')
 		.notEmpty()
 		.isBoolean()
 		.withMessage('Thursday must be a boolean, false or true'),
-	body('Friday')
+	body('friday')
 		.notEmpty()
 		.isBoolean()
 		.withMessage('Friday must be a boolean, false or true'),
-	body('Saturday')
+	body('saturday')
 		.notEmpty()
 		.isBoolean()
 		.withMessage('Saturday must be a boolean, false or true'),
-	body('Sunday')
+	body('sunday')
 		.notEmpty()
 		.isBoolean()
 		.withMessage('Sunday must be a boolean, false or true'),
 ];
 
 export const updateScheduleSchema = [
-	body('EntryTime')
+	body('entryTime')
 		.optional()
 		.isString()
 		.withMessage('The EntryTime must be in the format of date'),
-	body('ExitTime')
+	body('exitTime')
 		.optional()
 		.isString()
 		.withMessage('The time must be a text string'),
-	body('Monday')
+	body('monday')
 		.optional()
 		.isBoolean()
 		.withMessage('Monday, Just change if you need it'),
-	body('Tuesday')
+	body('tuesday')
 		.optional()
 		.isBoolean()
 		.withMessage('Tuesday, Just change if you need it'),
-	body('Wednesday')
+	body('wednesday')
 		.optional()
 		.isBoolean()
 		.withMessage('Wednesday, Just change if you need it'),
-	body('Thursday')
+	body('thursday')
 		.optional()
 		.isBoolean()
 		.withMessage('Thursday, Just change if you need it'),
-	body('Friday')
+	body('friday')
 		.optional()
 		.isBoolean()
 		.withMessage('Friday, Just change if you need it'),
-	body('Saturday')
+	body('saturday')
 		.optional()
 		.isBoolean()
 		.withMessage('Saturday, Just change if you need it'),
-	body('Sunday')
+	body('sunday')
 		.optional()
 		.isBoolean()
 		.withMessage('Sunday, Just change if you need it'),

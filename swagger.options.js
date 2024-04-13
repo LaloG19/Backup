@@ -7,11 +7,12 @@ export const options = {
 			description: 'Proyecto de Vue.js para la gestión de trabajadores',
 		},
 		servers: [
-
 			{
 				url: 'https://backup-production-9704.up.railway.app',
-			}
-
+			},
+			{
+				url: 'http://localhost:3000',
+			},
 		],
 	},
 	apis: ['./src/routes/*.js'],

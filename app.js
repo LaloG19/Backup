@@ -5,7 +5,7 @@ import morgan from 'morgan';
 
 // Rutas
 import catRoutes from './src/routes/catalogos.busquedas.routes.js';
-import ScheduleRoutes from './src/routes/schedule.routes';
+import ScheduleRoutes from './src/routes/schedule.routes.js';
 
 // Base de datos
 import { Connection } from './src/database/mysql.database.js';
@@ -36,6 +36,7 @@ const App = {
 		app.use('/api/v1/schedule', ScheduleRoutes);
 
 		app.use('/api/v1/catalogo', catRoutes);
+
 		app.use('/api/v1/test', (req, res) => {
 			res.status(200).json({ message: 'Test' });
 		});
