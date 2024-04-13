@@ -18,8 +18,7 @@ const router = Router();
  * /api/v1/schedule:
  *   get:
  *     summary: Get all schedules
- *     tags:
- *       - [Schedule]
+ *     tags: [Schedule]
  *     responses:
  *       200:
  *         description: List of schedules
@@ -46,8 +45,7 @@ router.get('/', scheduleController.getSchedule);
  * /api/v1/schedule/busqueda/{id}:
  *   get:
  *     summary: GetOneUserSchedule
- *     tags:
- *       - [Schedule]
+ *     tags: [Schedule]
  *     parameters:
  *       - in: path
  *         name: id
@@ -80,8 +78,7 @@ router.get('/busqueda/:id', scheduleController.findOneSchedule);
  * @swagger
  * /api/v1/schedule:
  *   post:
- *     tags:
- *       - [Schedule]
+ *     tags: [Schedule]
  *     summary: Create a new schedule
  *     requestBody:
  *       required: true
@@ -243,8 +240,7 @@ router.patch(
  * /api/v1/schedule:
  *   delete:
  *     summary: Delete a schedule
- *     tags:
- *        [Schedule]
+ *     tags: [Schedule]
  *     requestBody:
  *       required: true
  *       content:

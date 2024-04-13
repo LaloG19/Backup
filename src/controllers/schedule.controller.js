@@ -22,6 +22,9 @@ const findOneSchedule = async (req, res) => {
 				ScheduleID,
 			},
 		});
+		if (!data) {
+			return res.status(404).json({ message: 'Schedule not found' });
+		}
 		return res.status(200).json(data);
 	} catch (error) {
 		console.error('Error in obtaining user schedule', error.message);
@@ -84,7 +87,7 @@ const updateSchedule = async (req, res) => {
 		console.log('Schedule updated successfully');
 		return res.status(200).json({ success: true, message: 'Schedule updated' });
 	} catch (error) {
-		console.error('Error updating schedule:', error); 
+		console.error('Error updating schedule:', error);
 		return res.status(500).json({ error: 'Error to update schedule' });
 	}
 };
