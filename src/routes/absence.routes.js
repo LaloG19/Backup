@@ -22,7 +22,7 @@ const router = Router();
  *  get:
  *    summary: Obtener una lista de las faltas registradas
  *    tags: 
- *     - [Absence]
+ *      [Absence]
  *    responses:
  *      200:
  *        description: Lista de faltas registradas obtenida correctamente
