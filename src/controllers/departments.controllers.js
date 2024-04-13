@@ -54,30 +54,30 @@ const createDepartment = async (req, res) =>{
 };
 
 const updateDepartment = async (req, res) =>{
-    /* const {departmentID, name, description, numberOfEmployees} = req.body; */
-
+    const departmentBody = req.body;
+    console.log(' departmentBody: ', JSON.stringify(departmentBody  ));
     try{
-/*         const validateDepartment = await Department.findOne({
-            where:{ departmentID },
-        });
-        if(!validateDepartment){
-            return res.status(404).json({error: 'Departamento no encontrado'});
-        } */
-/*             const [updated] = await Department.update(
-                {name},
-                {description},
-                {numberOfEmployees},
-                {where: {departmentID}}
-            );
+        const departamento = await Department.findOne({
+            where: {
+                departmentID: departmentBody.departmentID,
+            },
+            });
 
-            if(!updated){
-                return res.status(500).json({error:'Departamento no actualizado'});
-            } */
-            
-            return res.status(200).json({succesed: true, message: 'Departamento actualizado correctamente'});
+        if(!departamento){
+            res.status(404).json({error: 'Departamento no encontrado'});
+        }
+
+        const updatedDepartment = await Department.update(departmentBody, {
+            where: { departmentID: departmentBody.departmentID },
+        });
+        return res.status(200).json({
+            message: 'Departamento actualizado correctamente',
+            data: updatedDepartment,
+        });
+
     }catch(error){
-        console.error('Error al actualizar el departamento',error.message);
-        return res.status(500).json({error:'Error al actualizar el departamento'});
+        console.error('Error al actualizar el departamento ', error.message);
+        return res.status(500).json({error: 'Error al actualizar el departamento'});
     }
 };
 
@@ -99,7 +99,7 @@ const deleteDepartment = async (req, res) =>{
         console.error('Error al eliminar el departamento ', error.message);
         return res.status(500).json({error: 'Error al eliminar el departamento'});
     }
-}
+};
 
 
 export const methods = {

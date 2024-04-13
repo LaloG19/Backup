@@ -65,8 +65,10 @@ router.get('/', methods.getDepartments)
  *              name: Departamento 1
  *              description: Descripción del departamento 1
  *              numberOfEmployees: 10
- *      500:
+ *      404:
  *        description: Departamento no encontrado
+ *      500:
+ *        description: Error al encontrar departamento
  */
 router.get('/search/:name', methods.findDepartmentByName);
 
@@ -110,42 +112,37 @@ router.post('/create',
 /**
  * @swagger
  * /api/v1/departments/modify:
- *  patch:
- *    summary: Editar un departamento existente
- *    tags: [Departments]
- *    parameters:
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            properties:
+ *   patch:
+ *     tags: [Departments]
+ *     summary: Actualiza un departamento
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
  *               departmentID:
- *                 type: integer
- *                 description: 1
+ *                 type: number
+ *                 description: La clave del departamento
  *               name:
  *                 type: string
- *                 description: "Nuevo nombre del departamento"
+ *                 description: El nombre del departamento
  *               description:
- *                  type: string
- *                  description: "Nueva descripción del departamento"
+ *                 type: string
+ *                 description: La descripción del departamento
  *               numberOfEmployees:
- *                  type: integer
- *                  description: 10
- *    responses:
- *      200:
- *        description: Departamento actualizado correctamente
- *      404:
- *        description: El departamento no se encontró
- *      500:
- *        description: Error al actualizar el departamento
+ *                 type: number
+ *                 description: La cantidad de empleados del departamento
+ *     responses:
+ *       200:
+ *         description: Método de pago actualizado con éxito
+ *       404:
+ *         description: No se encontró el método de pago
+ *       500:
+ *         description: Error al actualizar el método de pago
  */
-router.patch('/modify',
-    schemas.updateDepartmentSchema,
-    middleware.validateSchema,
-    methods.updateDepartment
-);
+router.patch('/modify', methods.updateDepartment);
 
 /**
  * @swagger
