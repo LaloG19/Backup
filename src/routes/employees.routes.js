@@ -112,7 +112,7 @@ router.get('/search/:name', methods.findEmployeeByName);
  *                type: string
  *                format: email
  *              phoneNumber:
- *                type: string
+ *                type: integer
  *              address:
  *                type: string
  *              scheduleID:
@@ -163,7 +163,7 @@ router.post('/create',
  *                 type: string
  *                 description: El correo electrónico del empleado
  *               phoneNumber:
- *                 type: string
+ *                 type: integer
  *                 description: El número de teléfono del empleado
  *               address:
  *                 type: string
