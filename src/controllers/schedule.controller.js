@@ -1,5 +1,7 @@
 import { Schedule } from '../models/schedule.model.js';
 
+// Este GET obtendra todos los schedules
+
 const getSchedule = async (req, res) => {
 	try {
 		const data = await Schedule.findAll();
@@ -9,6 +11,8 @@ const getSchedule = async (req, res) => {
 		return res.status(500).json({ error: 'Error in obtaining data' });
 	}
 };
+
+// Este GET buscara un schedule mediante un id
 
 const findOneSchedule = async (req, res) => {
 	const ScheduleID = req.params.id;
@@ -25,6 +29,8 @@ const findOneSchedule = async (req, res) => {
 	}
 };
 
+// POST que se encargara de crear un schedule
+
 const createSchedule = async (req, res) => {
 	const scheduleBody = req.body;
 	try {
@@ -35,6 +41,8 @@ const createSchedule = async (req, res) => {
 		return res.status(500).json({ error: 'Error to create Schedule' });
 	}
 };
+
+// Este PATCH se encargara de actualizar todo un schedule
 
 const updateSchedule = async (req, res) => {
 	const {
@@ -76,12 +84,12 @@ const updateSchedule = async (req, res) => {
 		console.log('Schedule updated successfully');
 		return res.status(200).json({ success: true, message: 'Schedule updated' });
 	} catch (error) {
-		console.error('Error updating schedule:', error); // Actualiza este log para imprimir el error completo
+		console.error('Error updating schedule:', error); 
 		return res.status(500).json({ error: 'Error to update schedule' });
 	}
 };
 
-// En schedule.controller.js
+// Este es un PATCH que se encargara de actualizar seleccionando el ID
 
 const updateOneSchedule = async (req, res) => {
 	const scheduleID = req.params.id;
@@ -127,6 +135,8 @@ const updateOneSchedule = async (req, res) => {
 		return res.status(500).json({ error: 'Error to update schedule' });
 	}
 };
+
+// Este DELETE borrara todo el schedule mediante un id
 
 const deleteSchedule = async (req, res) => {
 	const scheduleID = req.body.scheduleID;
