@@ -19,6 +19,11 @@ const findDepartmentByName = async (req, res) =>{
                 name: { [Op.like]:  `%${name}%` }
             },  
         });
+
+        if(!department){
+            return res.status(404).json({error: 'No se ha encontrado el empleado ingresado'});
+        }
+
         return res.status(200).json(department);
     } catch (error) {
         console.error('Error al obtener el Departamento deseado', error.message);
@@ -32,7 +37,6 @@ const createDepartment = async (req, res) =>{
     try{
         const validateDepartment = await Department.findOne({
             where: {
-                departmentID: departmentBody.departmentID, 
                 name: departmentBody.name 
             },
         });
@@ -42,7 +46,6 @@ const createDepartment = async (req, res) =>{
         }
 
         await Department.create(departmentBody);
-
         return res.status(200).json({succesed: true, message: 'Departamento creado con exito'});
     }catch (error){
         console.error('Error al crear el departamento ', error.message);
@@ -51,25 +54,26 @@ const createDepartment = async (req, res) =>{
 };
 
 const updateDepartment = async (req, res) =>{
-    const {departmentID, name, description} = req.body;
+    /* const {departmentID, name, description, numberOfEmployees} = req.body; */
 
     try{
-        const validateDepartment = await Department.findOne({
+/*         const validateDepartment = await Department.findOne({
             where:{ departmentID },
         });
         if(!validateDepartment){
             return res.status(404).json({error: 'Departamento no encontrado'});
-        }
-            const [updated] = await Department.update(
+        } */
+/*             const [updated] = await Department.update(
                 {name},
                 {description},
+                {numberOfEmployees},
                 {where: {departmentID}}
             );
 
             if(!updated){
-                return res.status(404).json({error:'Departamento no encontrado'});
-            }
-
+                return res.status(500).json({error:'Departamento no actualizado'});
+            } */
+            
             return res.status(200).json({succesed: true, message: 'Departamento actualizado correctamente'});
     }catch(error){
         console.error('Error al actualizar el departamento',error.message);

@@ -10,7 +10,7 @@ const router = Router();
  * @swagger
  * tags:
  * 
- *  - name: Departamentos
+ *  - name: Departments
  *    description: Endpoints referentes a los departamentos
  * 
  * 
@@ -18,87 +18,90 @@ const router = Router();
 
 /**
  * @swagger
- * /api/v1/departamentos:
- *   get:
- *     summary: Obtener una lista de los departamentos
- *     tags: [Departamentos]
- *     responses:
- *       200:
- *         description: Lista de departamentos
- *         content:
- *           application/json:
- *             example:
- *               - id: 1
- *                 name: "Departamento 1"
- *               - id: 2
- *                 name: "Departamento 2"
- *       500:
- *         description: Error al obtener los datos
+ * /api/v1/departments:
+ *  get:
+ *    summary: Obtener una lista de los departamentos
+ *    tags: [Departments]
+ *    responses:
+ *      200:
+ *        description: Lista de departamentos obtenida correctamente
+ *        content:
+ *          application/json:
+ *            example:
+ *              departments:
+ *                - departmentID: 1
+ *                  name: Departamento 1
+ *                  description: Descripción del departamento 1
+ *                  numberOfEmployees: 10
+ *                - departmentID: 2
+ *                  name: Departamento 2
+ *                  description: Descripción del departamento 2
+ *                  numberOfEmployees: 15
+ *      500:
+ *        description: Error al obtener la lista de departamentos
  */
-router.get('/departamentos/', methods.getDepartments);
+router.get('/', methods.getDepartments)
 
 /**
  * @swagger
- * /api/v1/departamentos/{departmentID}:
- *   get:
- *     summary: Obtener un departamento por ID
- *     tags: [Departamentos]
- *     parameters:
- *       - in: path
- *         name: departmentID
- *         required: true
- *         description: ID del departamento a obtener
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Departamento encontrado
- *         content:
- *           application/json:
- *             example:
- *               id: 1
- *               name: "Departamento 1"
- *       404:
- *         description: Departamento no encontrado
- *       500:
- *         description: Error al obtener el departamento
+ * /api/v1/departments/search/{name}:
+ *  get:
+ *    summary: Obtener un departamento por nombre
+ *    tags: [Departments]
+ *    parameters:
+ *      - in: path
+ *        name: name
+ *        required: true
+ *        description: Nombre del departamento a buscar
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Departamento encontrado
+ *        content:
+ *          application/json:
+ *            example:
+ *              departmentID: 1
+ *              name: Departamento 1
+ *              description: Descripción del departamento 1
+ *              numberOfEmployees: 10
+ *      500:
+ *        description: Departamento no encontrado
  */
-router.get('/departamentos/:departmenName', methods.findDepartmentByName);
+router.get('/search/:name', methods.findDepartmentByName);
 
 /**
  * @swagger
- * /api/v1/departamentos/crear:
- *   post:
- *     summary: Crear un nuevo departamento
- *     tags: [Departamentos]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               name:
- *                 type: string
- *                 description: Nombre del departamento
- *               description:
- *                 type: string
- *                 description: Descripción del departamento
- *     responses:
- *       200:
- *         description: Departamento creado exitosamente
- *         content:
- *           application/json:
- *             example:
- *               id: 1
- *               name: "Nuevo Departamento"
- *               description: "Descripción del nuevo departamento"
- *       409:
- *         description: Conflicto, el nombre del departamento ya existe
- *       500:
- *         description: Error interno al crear el departamento
+ * /api/v1/departments/create:
+ *  post:
+ *    summary: Crear un nuevo departamento
+ *    tags: [Departments]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              name:
+ *                type: string
+ *              description:
+ *                type: string
+ *              numberOfEmployees:
+ *                type: integer
+ *            example:
+ *              name: Nuevo Departamento
+ *              description: Descripción del nuevo departamento
+ *              numberOfEmployees: 5
+ *    responses:
+ *      200:
+ *        description: Departamento creado correctamente
+ *      409:
+ *        description: Ya existe un departamento con el mismo nombre
+ *      500:
+ *        description: Error al crear el departamento
  */
-router.post('/departamentos/crear', 
+router.post('/create', 
     schemas.formDepartmentSchema,
     middleware.validateSchema,
     methods.createDepartment, 
@@ -106,75 +109,73 @@ router.post('/departamentos/crear',
 
 /**
  * @swagger
- * /api/v1/departamentos/modificar/{id}:
- *   patch:
- *     summary: Modificar un departamento existente
- *     tags: [Departamentos]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID del departamento a modificar
- *         schema:
- *           type: integer
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
+ * /api/v1/departments/modify:
+ *  patch:
+ *    summary: Editar un departamento existente
+ *    tags: [Departments]
+ *    parameters:
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *               departmentID:
+ *                 type: integer
+ *                 description: 1
  *               name:
  *                 type: string
- *                 description: Nuevo nombre del departamento
+ *                 description: "Nuevo nombre del departamento"
  *               description:
- *                 type: string
- *                 description: Nueva descripción del departamento
- *     responses:
- *       200:
- *         description: Departamento modificado exitosamente
- *         content:
- *           application/json:
- *             example:
- *               id: 1
- *               name: "Departamento modificado"
- *               description: "Nueva descripción del departamento"
- *       404:
- *         description: Departamento no encontrado
- *       500:
- *         description: Error interno al modificar el departamento
+ *                  type: string
+ *                  description: "Nueva descripción del departamento"
+ *               numberOfEmployees:
+ *                  type: integer
+ *                  description: 10
+ *    responses:
+ *      200:
+ *        description: Departamento actualizado correctamente
+ *      404:
+ *        description: El departamento no se encontró
+ *      500:
+ *        description: Error al actualizar el departamento
  */
-router.patch('/departamentos/modificar/:id',
-    schemas.formDepartmentSchema,
+router.patch('/modify',
+    schemas.updateDepartmentSchema,
     middleware.validateSchema,
     methods.updateDepartment
 );
 
 /**
  * @swagger
- * /api/v1/departamentos/eliminar/{id}:
- *   delete:
- *     summary: Eliminar un departamento existente
- *     tags: [Departamentos]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID del departamento a eliminar
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Departamento eliminado exitosamente
- *       404:
- *         description: Departamento no encontrado
- *       500:
- *         description: Error interno al eliminar el departamento
+ * /api/v1/departments/delete:
+ *  delete:
+ *    summary: Eliminar un departamento existente
+ *    tags: [Departments]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              departmentID:
+ *                type: integer
+ *                description: ID del departamento a eliminar
+ *            example:
+ *              departmentID: 1
+ *    responses:
+ *      200:
+ *        description: Departamento eliminado correctamente
+ *      404:
+ *        description: El departamento no se encontró
+ *      500:
+ *        description: Error al eliminar el departamento
  */
-router.delete('/departamentos/eliminar/:id', 
+router.delete('/delete', 
     schemas.deleteDepartmentSchema,
     middleware.validateSchema,
     methods.deleteDepartment
 );
-
 export default router;
