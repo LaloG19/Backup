@@ -20,8 +20,8 @@ const findEmployeeByName = async (req, res) => {
             }
         });
 
-        if (!employees.length) {
-            return res.status(404).json({ error: 'No se encontraron empleados con ese nombre' });
+        if (employees.length === 0) {
+            return res.status(404).json({ error: 'No se encontraron empleados con un nombre parecido' });
         }
 
         return res.status(200).json(employees);
@@ -54,12 +54,12 @@ const createEmployee = async (req, res) => {
 };
 
 const updateEmployee = async (req, res) => {
-    const { employeeID, name, lastName, department, position, salary, email } = req.body;
+    const employeeBody = req.body;
 
     try {
         const employee = await Employee.findOne({
             where: {
-                employeeID
+                employeeID : employeeBody.employeeID
             }
         });
 
@@ -67,15 +67,10 @@ const updateEmployee = async (req, res) => {
             return res.status(404).json({ error: 'Empleado no encontrado' });
         }
 
-        await Employee.update({
-            name,
-            lastName,
-            department,
-            position,
-            salary,
-            email
-        }, {
-            where: { employeeID }
+        await Employee.update(employeeBody, {
+            where: {
+                employeeID: employeeBody.employeeID
+            }
         });
 
         return res.status(200).json({ success: true, message: 'Empleado actualizado exitosamente' });

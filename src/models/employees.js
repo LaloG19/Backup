@@ -18,12 +18,8 @@ export const Employee = Connection.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        department: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        position: {
-            type: DataTypes.STRING,
+        positionID: {
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         salary: {
@@ -36,7 +32,7 @@ export const Employee = Connection.define(
             unique: true
         },
         phoneNumber: {
-            type: DataTypes.STRING,
+            type: DataTypes.INTEGER,
             allowNull: true
         },
         address: {

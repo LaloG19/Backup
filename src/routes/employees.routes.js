@@ -32,17 +32,21 @@ const router = Router();
  *                - employeeID: 1
  *                  name: Empleado 1
  *                  lastName: Apellido del Empleado 1
- *                  department: Departamento 1
- *                  position: Posición del Empleado 1
- *                  salary: 1000
+ *                  positionID: 1
+ *                  salary: 1000.0
  *                  email: empleado1@example.com
+ *                  phoneNumber: 123456789
+ *                  address: Dirección del Empleado 1
+ *                  scheduleID: 1
  *                - employeeID: 2
  *                  name: Empleado 2
  *                  lastName: Apellido del Empleado 2
- *                  department: Departamento 2
- *                  position: Posición del Empleado 2
- *                  salary: 1500
+ *                  positionID: 2
+ *                  salary: 1500.0
  *                  email: empleado2@example.com
+ *                  phoneNumber: 987654321
+ *                  address: Dirección del Empleado 2
+ *                  scheduleID: 2
  *      500:
  *        description: Error al obtener la lista de empleados
  */
@@ -70,10 +74,12 @@ router.get('/', methods.getEmployees);
  *              employeeID: 1
  *              name: Empleado 1
  *              lastName: Apellido del Empleado 1
- *              department: Departamento 1
- *              position: Posición del Empleado 1
- *              salary: 1000
+ *              positionID: 1
+ *              salary: 1000.0
  *              email: empleado1@example.com
+ *              phoneNumber: 123456789
+ *              address: Dirección del Empleado 1
+ *              scheduleID: 1
  *      404:
  *        description: Empleado no encontrado
  *      500:
@@ -98,14 +104,13 @@ router.get('/search/:name', methods.findEmployeeByName);
  *                type: string
  *              lastName:
  *                type: string
- *              department:
- *                type: string
- *              position:
- *                type: string
+ *              positionID:
+ *                type: integer
  *              salary:
  *                type: number
  *              email:
  *                type: string
+ *                format: email
  *              phoneNumber:
  *                type: string
  *              address:
@@ -125,7 +130,6 @@ router.post('/create',
     middleware.validateSchema,
     methods.createEmployee, 
 );
-
 
 /**
  * @swagger
@@ -149,12 +153,9 @@ router.post('/create',
  *               lastName:
  *                 type: string
  *                 description: El apellido del empleado
- *               department:
- *                 type: string
- *                 description: El departamento del empleado
- *               position:
- *                 type: string
- *                 description: La posición del empleado
+ *               positionID:
+ *                 type: integer
+ *                 description: La ID de la posición del empleado
  *               salary:
  *                 type: number
  *                 description: El salario del empleado
@@ -180,7 +181,6 @@ router.post('/create',
  */
 router.patch('/modify', methods.updateEmployee);
 
-
 /**
  * @swagger
  * /api/v1/employees/delete:
@@ -197,8 +197,6 @@ router.patch('/modify', methods.updateEmployee);
  *              employeeID:
  *                type: integer
  *                description: ID del empleado a eliminar
- *            example:
- *              employeeID: 1
  *    responses:
  *      200:
  *        description: Empleado eliminado correctamente
