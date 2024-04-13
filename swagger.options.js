@@ -12,7 +12,7 @@ export const options = {
 				url: 'https://backup-production-9704.up.railway.app',
 			},
 			{
-				url: 'localhost:3000/docs',
+				url: 'http://localhost:3000',
 			}
 
 		],
