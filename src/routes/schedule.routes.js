@@ -18,7 +18,7 @@ const router = Router();
  * /api/v1/schedule:
  *   get:
  *     summary: Get all schedules
- *     tags: [Schedule]
+ *     tags: [Schedules]
  *     responses:
  *       200:
  *         description: List of schedules
@@ -45,7 +45,7 @@ router.get('/', scheduleController.getSchedule);
  * /api/v1/schedule/busqueda/{id}:
  *   get:
  *     summary: GetOneUserSchedule
- *     tags: [Schedule]
+ *     tags: [Schedules]
  *     parameters:
  *       - in: path
  *         name: id
@@ -78,7 +78,7 @@ router.get('/busqueda/:id', scheduleController.findOneSchedule);
  * @swagger
  * /api/v1/schedule:
  *   post:
- *     tags: [Schedule]
+ *     tags: [Schedules]
  *     summary: Create a new schedule
  *     requestBody:
  *       required: true
@@ -128,7 +128,7 @@ router.post(
  * /api/v1/schedule:
  *  patch:
  *    summary: Update a schedule
- *    tags: [Schedule]
+ *    tags: [Schedules]
  *    requestBody:
  *      required: true
  *      content:
@@ -177,70 +177,19 @@ router.patch(
 	scheduleController.updateSchedule,
 );
 
-/**
- * @swagger
- * /api/v1/schedule/{id}:
- *  patch:
- *    summary: Update a schedule with id
- *    tags: [Schedule]
- *    parameters:
- *      - in: path
- *        name: id
- *        required: true
- *        schema:
- *          type: integer
- *        description: ID of the schedule
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            properties:
- *              entryTime:
- *                type: string
- *              exitTime:
- *                type: string
- *              monday:
- *                type: boolean
- *              tuesday:
- *                type: boolean
- *              wednesday:
- *                type: boolean
- *              thursday:
- *                type: boolean
- *              friday:
- *                type: boolean
- *              saturday:
- *                type: boolean
- *              sunday:
- *                type: boolean
- *    responses:
- *      200:
- *        description: Schedule updated
- *        content:
- *          application/json:
- *            example:
- *              success: true
- *              message: Schedule updated
- *      404:
- *        description: Schedule not found
- *      500:
- *        description: Error to update schedule
- */
-router.patch(
+/* router.patch(
 	'/:id',
 	schemas.updateScheduleSchema,
 	middleware.validateSchema,
 	scheduleController.updateOneSchedule,
-);
+); */
 
 /**
  * @swagger
  * /api/v1/schedule:
  *   delete:
  *     summary: Delete a schedule
- *     tags: [Schedule]
+ *     tags: [Schedules]
  *     requestBody:
  *       required: true
  *       content:
