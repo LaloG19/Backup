@@ -5,7 +5,9 @@ import morgan from 'morgan';
 
 // Rutas
 import catRoutes from './src/routes/catalogos.busquedas.routes.js';
-import ScheduleRoutes from './src/routes/schedule.routes.js';
+import scheduleRoutes from './src/routes/schedule.routes.js';
+import adminRoutes from './src/routes/admin.routes.js';
+import departmentRoutes from './src/routes/department.routes.js';
 
 // Base de datos
 import { Connection } from './src/database/mysql.database.js';
@@ -33,10 +35,11 @@ const App = {
 		app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 		// Rutas
-		app.use('/api/v1/schedule', ScheduleRoutes);
-
+		app.use('/api/v1/schedule', scheduleRoutes);
 		app.use('/api/v1/catalogo', catRoutes);
-
+		app.use('/api/v1/admins', adminRoutes);
+		app.use('/api/v1/departments', departmentRoutes);
+    
 		app.use('/api/v1/test', (req, res) => {
 			res.status(200).json({ message: 'Test' });
 		});
