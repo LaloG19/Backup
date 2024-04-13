@@ -7,6 +7,7 @@ import morgan from 'morgan';
 import catRoutes from './src/routes/catalogos.busquedas.routes.js';
 import scheduleRoutes from './src/routes/schedule.routes.js';
 import adminRoutes from './src/routes/admin.routes.js';
+import absenceRoutes from './src/routes/absence.routes.js';
 import departmentRoutes from './src/routes/department.routes.js';
 
 // Base de datos
@@ -38,6 +39,7 @@ const App = {
 		app.use('/api/v1/schedule', scheduleRoutes);
 		app.use('/api/v1/catalogo', catRoutes);
 		app.use('/api/v1/admins', adminRoutes);
+		app.use('/api/v1/absence', absenceRoutes);
 		app.use('/api/v1/departments', departmentRoutes);
     
 		app.use('/api/v1/test', (req, res) => {
