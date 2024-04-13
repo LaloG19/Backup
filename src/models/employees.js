@@ -2,39 +2,55 @@ import { DataTypes } from 'sequelize';
 import { Connection } from '../database/mysql.database.js';
 
 export const Employee = Connection.define(
-    'Employee', 
+    'Employee',
     {
         employeeID: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
-            allowNull: false,
+            allowNull: false
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: false
         },
         lastName: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: false
         },
         department: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false
         },
         position: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false
         },
         salary: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.FLOAT,
+            allowNull: false
+        },
+        email: {
+            type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: 0,
+            unique: true
+        },
+        phoneNumber: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        address: {
+            type: DataTypes.STRING,
+            allowNull: true 
+        },
+        scheduleID: {
+            type: DataTypes.INTEGER,
+            allowNull: true 
         }
     },
     {
         tableName: 'employees',
         timestamps: false,
-        freezeTableName: true,
-    },
+        freezeTableName: true
+    }
 );
