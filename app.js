@@ -5,6 +5,7 @@ import morgan from 'morgan';
 
 // Rutas
 import catRoutes from './src/routes/catalogos.busquedas.routes.js';
+import scheduleRoutes from './src/routes/schedule.routes.js';
 import adminRoutes from './src/routes/admin.routes.js';
 import departmentRoutes from './src/routes/department.routes.js';
 
@@ -34,18 +35,17 @@ const App = {
 		app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 		// Rutas
-
+		app.use('/api/v1/schedule', scheduleRoutes);
 		app.use('/api/v1/catalogo', catRoutes);
 		app.use('/api/v1/admins', adminRoutes);
 		app.use('/api/v1/departments', departmentRoutes);
+    
 		app.use('/api/v1/test', (req, res) => {
 			res.status(200).json({ message: 'Test' });
 		});
 		app.use('/', (req, res) => {
-			res.status(404).json({message:'Request not found'})
+			res.status(404).json({ message: 'Request not found' });
 		});
-
-
 
 		async function connectDatabase() {
 			try {
@@ -74,7 +74,9 @@ const App = {
 			await connectDatabase();
 			app.use(handleError);
 			app.listen(PORT, () => {
-				console.log(`[Vue-API] se ejecuta en monorail.proxy.rlwy.net:24620 en el puerto ${PORT}`);
+				console.log(
+					`[Vue-API] se ejecuta en monorail.proxy.rlwy.net:24620 en el puerto ${PORT}`,
+				);
 			});
 		}
 
