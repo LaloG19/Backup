@@ -156,7 +156,7 @@ router.get('/', methods.getEmployees);
  *       500:
  *         description: Error in obtaining user Enrollment
  */
-router.get('/busqueda/:id', methods.findOneEmployeeByEnrollment);
+router.get('/busqueda/:id', methods.findOneEmployeeByID);
 
 /**
  * @swagger

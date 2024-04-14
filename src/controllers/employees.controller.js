@@ -36,7 +36,7 @@ const findEmployeeByName = async (req, res) => {
 	}
 };
 
-const findOneEmployeeByEnrollment = async (req, res) => {
+const findOneEmployeeByID = async (req, res) => {
 	const employeeID = req.params.id;
 	try {
 		const data = await Employee.findOne({
@@ -200,5 +200,5 @@ export const methods = {
 	createEmployee,
 	updateEmployee,
 	deleteEmployee,
-	findOneEmployeeByEnrollment,
+	findOneEmployeeByID,
 };
