@@ -63,7 +63,7 @@ router.get('/', methods.getAbsence)
  *      500:
  *        description: Error al buscar las ausencias
  */
-router.get('/search/:id', methods.findAbsenceByID);
+router.get('/search/:name', methods.findAbsenceByName);
 
 /**
  * @swagger

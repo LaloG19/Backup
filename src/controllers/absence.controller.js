@@ -15,36 +15,32 @@ export const getAbsence = async (req, res) => {
 };
 
 
-export const findAbsenceByID = async (req, res) => {
-    const employeeID = req.params.id;
+export const findAbsenceByName = async (req, res) => {
+    const name = req.params.name;
 
     try {
-        const idToSearch = await Employee.findOne({
+
+        const nameToSearch = await Employee.findOne({
             where: {
-                employeeID: {
-                    [Op.like]: `%${employeeID}%`
+                name: {
+                    [Op.like]: `%${name}%`
                 }
             }
         });
-
-        if (!idToSearch) {
+        
+        if (!nameToSearch) {
             return res.status(404).json({ error: 'Empleado no encontrado' });
         }
 
         const absence = await Absence.findAll({
             where: {
-                employeeID: idToSearch.employeeID
+                employeeID: nameToSearch.employeeID
             }
         });
-
-        if (!absence) {
-            return res.status(404).json({ error: 'El trabajador no tiene ausencias' });
-        }
-
         return res.status(200).json(absence);
     } catch (error) {
-        console.error('Error al obtener las ausencias por nombre:', error.message);
-        return res.status(500).json({ error: 'Error interno del servidor' });
+        console.error('Error al encontrar las faltas por nombre', error.message);
+        return res.status(500).json({ error: 'Error al encontrar las faltas por nombre' });
     }
 };
 
@@ -160,7 +156,7 @@ const deleteAbsence = async (req, res) => {
 
 export const methods = {
     getAbsence,
-    findAbsenceByID,
+    findAbsenceByName,
     createAbsence,
     updateAbsence,
     deleteAbsence,
