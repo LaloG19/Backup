@@ -6,15 +6,15 @@ import * as schemas from '../schemas/employee.js';
 
 const router = Router();
 
-/** 
+/**
  * @swagger
  * tags:
- * 
+ *
  *  - name: Employees
  *    description: Endpoints referentes a los empleados
- * 
- * 
-*/
+ *
+ *
+ */
 
 /**
  * @swagger
@@ -89,6 +89,77 @@ router.get('/search/:name', methods.findEmployeeByName);
 
 /**
  * @swagger
+ * /api/v1/employees:
+ *  get:
+ *    summary: Obtener una lista de los empleados
+ *    tags: [Employees]
+ *    responses:
+ *      200:
+ *        description: Lista de empleados obtenida correctamente
+ *        content:
+ *          application/json:
+ *            example:
+ *              employees:
+ *                - employeeID: 1
+ *                  name: Empleado 1
+ *                  lastName: Apellido del Empleado 1
+ *                  positionID: 1
+ *                  salary: 1000.0
+ *                  email: empleado1@example.com
+ *                  phoneNumber: 123456789
+ *                  address: Dirección del Empleado 1
+ *                  scheduleID: 1
+ *                - employeeID: 2
+ *                  name: Empleado 2
+ *                  lastName: Apellido del Empleado 2
+ *                  positionID: 2
+ *                  salary: 1500.0
+ *                  email: empleado2@example.com
+ *                  phoneNumber: 987654321
+ *                  address: Dirección del Empleado 2
+ *                  scheduleID: 2
+ *      500:
+ *        description: Error al obtener la lista de empleados
+ */
+router.get('/', methods.getEmployees);
+
+/**
+ * @swagger
+ * /api/v1/employees/busqueda/{id}:
+ *   get:
+ *     summary: GetEmployeeByEnrollment
+ *     tags: [Employees]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of employee
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: View of one employee
+ *         content:
+ *           application/json:
+ *             example:
+ *               employeeID: 1
+ *               name: Pepe
+ *               lastname: Perez
+ *               positionID: 2
+ *               salary: "2000"
+ *               email: pepe@gmail.com
+ *               phoneNumber: "984625247242"
+ *               address: cp754 SM 464 MZ84 LT73
+ *               scheduleID: 2
+ *       404:
+ *         description: Enrollment not found
+ *       500:
+ *         description: Error in obtaining user Enrollment
+ */
+router.get('/busqueda/:id', methods.findOneEmployeeByEnrollment);
+
+/**
+ * @swagger
  * /api/v1/employees/create:
  *  post:
  *    summary: Crear un nuevo empleado
@@ -125,10 +196,11 @@ router.get('/search/:name', methods.findEmployeeByName);
  *      500:
  *        description: Error al crear el empleado
  */
-router.post('/create', 
-    schemas.formEmployeeSchema,
-    middleware.validateSchema,
-    methods.createEmployee, 
+router.post(
+	'/create',
+	schemas.formEmployeeSchema,
+	middleware.validateSchema,
+	methods.createEmployee,
 );
 
 /**
@@ -205,10 +277,11 @@ router.patch('/modify', methods.updateEmployee);
  *      500:
  *        description: Error al eliminar el empleado
  */
-router.delete('/delete', 
-    schemas.deleteEmployeeSchema,
-    middleware.validateSchema,
-    methods.deleteEmployee
+router.delete(
+	'/delete',
+	schemas.deleteEmployeeSchema,
+	middleware.validateSchema,
+	methods.deleteEmployee,
 );
 
 export default router;
