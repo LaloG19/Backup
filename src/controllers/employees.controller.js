@@ -1,4 +1,4 @@
-import { Employee } from '../models/employees.js';
+import { Employee } from '../models/employee.js';
 import { Schedule } from '../models/schedule.model.js';
 import { Position } from '../models/position.js'
 
