@@ -67,6 +67,29 @@ router.get('/search/:id', methods.findAbsenceByID);
 
 /**
  * @swagger
+ * /api/v1/absence/employee/{employeeID}:
+ *  get:
+ *    summary: Buscar faltas de un empleado por matrícula
+ *    tags: [Absence]
+ *    parameters:
+ *      - in: path
+ *        name: employeeID
+ *        required: true
+ *        schema:
+ *          type: integer
+ *        description: Matrícula del empleado
+ *    responses:
+ *      200:
+ *        description: Faltas encontradas
+ *      404:
+ *        description: No se encontraron faltas para la matrícula proporcionada
+ *      500:
+ *        description: Error al buscar las faltas
+ */
+router.get('/employee/:employeeID', methods.findAbsenceByEmployeeID);
+
+/**
+ * @swagger
  * /api/v1/absence/create:
  *  post:
  *    summary: Crear una Falta

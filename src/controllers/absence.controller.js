@@ -48,6 +48,39 @@ export const findAbsenceByID = async (req, res) => {
     }
 };
 
+export const findAbsenceByEmployeeID = async (req, res) => {
+	const { employeeID } = req.params;
+
+	try {
+		const employee = await Absence.findOne({
+			where: {
+				employeeID,
+			},
+		});
+
+		if (!employee) {
+			return res.status(404).json({ error: 'Employee not found' });
+		}
+
+		const absences = await Absence.findAll({
+			where: {
+				employeeID: employee.employeeID,
+			},
+		});
+
+		if (!absences || absences.length === 0) {
+			return res
+				.status(404)
+				.json({ error: 'No faults found for this employee' });
+		}
+
+		return res.status(200).json(absences);
+	} catch (error) {
+		console.error('Error in obtaining faults per enrollment:', error.message);
+		return res.status(500).json({ error: 'Error internal server' });
+	}
+};
+
 
 export const createAbsence = async (req, res) => {
     const absenceBody = req.body;
@@ -117,4 +150,5 @@ export const methods = {
     createAbsence,
     updateAbsence,
     deleteAbsence,
+    findAbsenceByEmployeeID
 };
