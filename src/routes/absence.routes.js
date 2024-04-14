@@ -90,6 +90,20 @@ router.get('/employee/:employeeID', methods.findAbsenceByEmployeeID);
 
 /**
  * @swagger
+ * /api/v1/absence/justified:
+ *  get:
+ *    summary: Obtener las faltas justificadas
+ *    tags: [Absence]
+ *    responses:
+ *      200:
+ *        description: Faltas justificadas encontradas
+ *      500:
+ *        description: Error al obtener las faltas justificadas
+ */
+router.get('/justified', methods.getAbsenceJustified);
+
+/**
+ * @swagger
  * /api/v1/absence/create:
  *  post:
  *    summary: Crear una Falta
