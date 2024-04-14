@@ -77,7 +77,7 @@ export const findAbsenceByEmployeeID = async (req, res) => {
 	}
 };
 
-const getAbsenceJustified = async (req, res) => {
+export const getAbsenceJustified = async (req, res) => {
     try {
         const absences = await Absence.findAll({
             where: {
@@ -131,8 +131,7 @@ export const updateAbsence = async (req, res) => {
     }
 };
 
-
-const deleteAbsence = async (req, res) => {
+export const deleteAbsence = async (req, res) => {
     const { absenceID } = req.body;
 
     try {
