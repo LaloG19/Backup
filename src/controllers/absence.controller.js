@@ -92,18 +92,23 @@ const updateAbsence = async (req, res) => {
 
 const deleteAbsence = async (req, res) => {
     const { absenceID } = req.body;
-    try {
-        const absenceToDelete = await Absence.findByPk(absenceID);
 
-        if (!absenceToDelete) {
+    try {
+        const absenceToUpdate = await Absence.findByPk(absenceID);
+
+        if (!absenceToUpdate) {
             return res.status(404).json({ error: 'Falta no encontrada' });
         }
 
-        await absenceToDelete.destroy();
-        return res.status(200).json({ success: true, message: 'Falta eliminada con éxito' });
+        if (absenceToUpdate.justified === 0) {
+            await absenceToUpdate.update({ justified: 1 });
+            return res.status(200).json({ success: true, message: 'El estado de la falta se cambió a no justificado' });
+        } else {
+            return res.status(400).json({ error: 'La falta no estaba justificada previamente' });
+        }
     } catch (error) {
-        console.error('Error al eliminar la Falta', error.message);
-        return res.status(500).json({ error: 'Error al eliminar la Falta' });
+        console.error('Error al actualizar la Falta', error.message);
+        return res.status(500).json({ error: 'Error al realizar actualización' });
     }
 };
 
