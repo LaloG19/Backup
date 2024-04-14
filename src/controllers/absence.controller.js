@@ -81,6 +81,20 @@ export const findAbsenceByEmployeeID = async (req, res) => {
 	}
 };
 
+const getAbsenceJustified = async (req, res) => {
+    try {
+        const absences = await Absence.findAll({
+            where: {
+                Justified: 0 
+            }
+        });
+
+        return res.status(200).json(absences);
+    } catch (error) {
+        console.error('No se encontraron las faltas no justificadas', error.message);
+        return res.status(500).json({ error: 'Error al encontrar las faltas no justificadas' });
+    }
+};
 
 export const createAbsence = async (req, res) => {
     const absenceBody = req.body;
@@ -122,7 +136,7 @@ export const updateAbsence = async (req, res) => {
 };
 
 
-export const deleteAbsence = async (req, res) => {
+const deleteAbsence = async (req, res) => {
     const { absenceID } = req.body;
 
     try {
@@ -134,9 +148,9 @@ export const deleteAbsence = async (req, res) => {
 
         if (absenceToUpdate.justified === 0) {
             await absenceToUpdate.update({ justified: 1 });
-            return res.status(200).json({ success: true, message: 'El estado de la falta se cambió a no justificado' });
+            return res.status(200).json({ success: true, message: 'El estado de la falta se cambió a ya no justificada' });
         } else {
-            return res.status(400).json({ error: 'La falta no estaba justificada previamente' });
+            return res.status(400).json({ error: 'La falta ya estaba justificada' });
         }
     } catch (error) {
         console.error('Error al actualizar la Falta', error.message);
@@ -150,5 +164,6 @@ export const methods = {
     createAbsence,
     updateAbsence,
     deleteAbsence,
+    getAbsenceJustified,
     findAbsenceByEmployeeID
 };
