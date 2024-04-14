@@ -8,86 +8,98 @@ const router = Router();
 /**
  * @swagger
  * tags:
- *   - name: Puestos
- *     description: Puestos de la empresa
+ *   - name: Positions
+ *     description: Endpoints referentes a los puestos de la empresa
  */
 
 /**
  * @swagger
- * /api/v1/puestos:
- *   get:
- *     summary: Obtener una lista de puestos
- *     tags: [Puestos]
- *     responses:
- *       200:
- *         description: Lista de puestos obtenida correctamente
- *         content:
- *           application/json:
- *             example:
- *               - id: 1
- *                 name: "Puesto 1"
- *               - id: 2
- *                 name: "Puesto 2"
- *       500:
- *         description: Error al obtener la lista de puestos
+ * /api/v1/positions:
+ *  get:
+ *    summary: Obtener una lista de las posiciones
+ *    tags: [Positions]
+ *    responses:
+ *      200:
+ *        description: Lista de posiciones obtenida correctamente
+ *        content:
+ *          application/json:
+ *            example:
+ *              positions:
+ *                - positionID: 1
+ *                  name: Posición 1
+ *                  description: Descripción de la posición 1
+ *                  departmentID: 1
+ *                - positionID: 2
+ *                  name: Posición 2
+ *                  description: Descripción de la posición 2
+ *                  departmentID: 2
+ *      500:
+ *        description: Error al obtener la lista de posiciones
  */
-router.get('/puestos/', methods.getPositions);
+router.get('/', methods.getPositions);
 
 /**
  * @swagger
- * /api/v1/puestos/{positionName}:
- *   get:
- *     summary: Buscar un puesto por nombre
- *     tags: [Puestos]
- *     parameters:
- *       - in: path
- *         name: positionName
- *         required: true
- *         description: Nombre del puesto a buscar
- *         schema:
- *           type: string
- *     responses:
- *       200:
- *         description: Puesto encontrado
- *         content:
- *           application/json:
- *             example:
- *               id: 1
- *               name: "Puesto 1"
- *       404:
- *         description: Puesto no encontrado
- *       500:
- *         description: Error al buscar el puesto
+ * /api/v1/positions/search/{name}:
+ *  get:
+ *    summary: Obtener una posición por nombre
+ *    tags: [Positions]
+ *    parameters:
+ *      - in: path
+ *        name: name
+ *        required: true
+ *        description: Nombre de la posición a buscar
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Posición encontrada
+ *        content:
+ *          application/json:
+ *            example:
+ *              positionID: 1
+ *              name: Posición 1
+ *              description: Descripción de la posición 1
+ *              departmentID: 1
+ *      404:
+ *        description: Posición no encontrada
+ *      500:
+ *        description: Error al encontrar posición
  */
-router.get('/puestos/:positionName', methods.findPositionbyName);
-
+router.get('/search/:name', methods.findPositionbyName);
 
 /**
  * @swagger
- * /api/v1/puestos/crear:
- *   post:
- *     summary: Crear un nuevo puesto
- *     tags: [Puestos]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Position'
- *     responses:
- *       200:
- *         description: Puesto creado exitosamente
- *         content:
- *           application/json:
- *             example:
- *               id: 1
- *               name: "Nuevo Puesto"
- *       409:
- *         description: Error, el puesto ya existe
- *       500:
- *         description: Error interno al crear el puesto
+ * /api/v1/positions/create:
+ *  post:
+ *    summary: Crear una nueva posición
+ *    tags: [Positions]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              name:
+ *                type: string
+ *              description:
+ *                type: string
+ *              departmentID:
+ *                type: integer
+ *            example:
+ *              name: Nueva Posición
+ *              description: Descripción de la nueva posición
+ *              departmentID: 1
+ *    responses:
+ *      200:
+ *        description: Posición creada correctamente
+ *      409:
+ *        description: Ya existe una posición con el mismo nombre
+ *      500:
+ *        description: Error al crear la posición
  */
-router.post('/puestos/crear', 
+router.post('/create', 
     schemas.formPositionSchema,
     middleware.validateSchema,
     methods.createPosition,
@@ -95,69 +107,71 @@ router.post('/puestos/crear',
 
 /**
  * @swagger
- * /api/v1/puestos/modificar/{id}:
+ * /api/v1/positions/modify:
  *   patch:
- *     summary: Modificar un puesto existente
- *     tags: [Puestos]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID del puesto a modificar
- *         schema:
- *           type: integer
+ *     tags: [Positions]
+ *     summary: Actualiza una posición
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Position'
+ *             type: object
+ *             properties:
+ *               positionID:
+ *                 type: number
+ *                 description: La clave de la posición
+ *               name:
+ *                 type: string
+ *                 description: El nombre de la posición
+ *               description:
+ *                 type: string
+ *                 description: La descripción de la posición
+ *               departmentID:
+ *                 type: number
+ *                 description: La clave del departamento asociado a la posición
  *     responses:
  *       200:
- *         description: Puesto modificado exitosamente
- *         content:
- *           application/json:
- *             example:
- *               id: 1
- *               name: "Puesto modificado"
+ *         description: Posición actualizada con éxito
  *       404:
- *         description: Puesto no encontrado
+ *         description: No se encontró la posición
  *       500:
- *         description: Error interno al modificar el puesto
+ *         description: Error al actualizar la posición
  */
-router.patch('/puestos/modificar/:id',
-    schemas.formPositionSchema,
-    middleware.validateSchema,
-    methods.updatePosition,
-);
-
+router.patch('/modify', methods.updatePosition);
 
 /**
  * @swagger
- * /api/v1/puestos/eliminar/{id}:
- *   delete:
- *     summary: Eliminar un puesto existente
- *     tags: [Puestos]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: ID del puesto a eliminar
- *         schema:
- *           type: integer
- *     responses:
- *       200:
- *         description: Puesto eliminado exitosamente
- *       404:
- *         description: Puesto no encontrado
- *       500:
- *         description: Error interno al eliminar el puesto
+ * /api/v1/positions/delete:
+ *  delete:
+ *    summary: Eliminar una posición existente
+ *    tags: [Positions]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              positionID:
+ *                type: integer
+ *                description: ID de la posición a eliminar
+ *            example:
+ *              positionID: 1
+ *    responses:
+ *      200:
+ *        description: Posición eliminada correctamente
+ *      404:
+ *        description: La posición no se encontró
+ *      500:
+ *        description: Error al eliminar la posición
  */
-router.delete('/puestos/eliminar/:id',
+router.delete('/delete',
     schemas.deletePositionsSchema,
     middleware.validateSchema,
     methods.deletePositions,
 );
+
 
 export default router;
 

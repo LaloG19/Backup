@@ -2,25 +2,49 @@ import { body } from 'express-validator';
 
 export const formPositionSchema = [
     body('name')
-        .notEmpty()
-        .withMessage('Ingresa un nombre para el puesto')
         .isString()
-        .withMessage('El nombre debe ser de tipo cadena'),
+        .withMessage('El nombre debe ser de tipo texto')
+        .notEmpty()
+        .withMessage('El nombre del puesto es obligatorio'),
     body('description')
-        .notEmpty()
-        .withMessage('Ingresa una descripción para el puesto')
         .isString()
-        .withMessage('La descripcion debe ser de tipo cadena'),
-    body('departament')
+        .withMessage('La descripción debe ser de tipo texto')
         .notEmpty()
-        .withMessage('Ingresa su departamento correspondiente')
+        .withMessage('La descripción es obligatorio'),
+    body('departmentID')
         .isInt()
-        .withMessage('Ingresa el valor correspondiente')
+        .withMessage('Ingresa el valor del departamento correspondiente')
+        .notEmpty()
+        .withMessage('El departamento es obligatorio')
 ];
+
+export const deletePositionSchema = [
+    body('positionID')
+        .isInt()
+        .withMessage('Ingresa el valor del puesto correspondiente')
+        .notEmpty()
+        .withMessage('Ingresa un puesto existente'),
+    body('name')
+        .isString()
+        .withMessage('El nombre debe ser de tipo texto')
+        .notEmpty()
+        .withMessage('El nombre del puesto es obligatorio'),
+    body('description')
+        .isString()
+        .withMessage('La descripción debe ser de tipo texto')
+        .notEmpty()
+        .withMessage('La descripción es obligatorio'),
+    body('departmentID')
+        .isInt()
+        .withMessage('Ingresa el valor del departamento correspondiente')
+        .notEmpty()
+        .withMessage('El departamento es obligatorio')
+]
 
 export const deletePositionsSchema = [
     body('positionID')
+        .isInt()
+        .withMessage('Ingresa el valor del puesto correspondiente')
         .notEmpty()
-        .isIntenger()
-        .withMessage('Se requiere un puesto existente')
+        .withMessage('Ingresa un puesto existente'),
 ];

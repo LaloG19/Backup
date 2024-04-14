@@ -1,7 +1,8 @@
 import { Op } from 'sequelize';
-import { Position } from '../models/position';
+import {Position} from '../models/position.js'
 
-const getPositions = async (res) =>{
+
+const getPositions = async (req, res) =>{
     try{
         const positions = await Position.findAll();
         return res.status(200).json(positions);
@@ -19,6 +20,11 @@ const findPositionbyName = async (req, res) =>{
                 name: {[Op.like]: `%${name}%`}
             },
         });
+
+        if(!position){
+            return res.status(404).json({error:'No se encentra el puesto solicitado'})
+        }
+
         return res.status(200).json(position)
     }catch(error){
         console.error('Error al obtener el puesto', error.message);
@@ -28,10 +34,10 @@ const findPositionbyName = async (req, res) =>{
 
 const createPosition = async (req, res) =>{
     const positionBody = req.body;
+    
     try{
         const validatePosition = await Position.findOne({
-            where: {
-                positionID: positionBody.positionID, 
+            where: { 
                 name: positionBody.name
             },
         });
@@ -49,32 +55,24 @@ const createPosition = async (req, res) =>{
 };
 
 const updatePosition = async (req, res) =>{
-    const {positionID, name, description, departmentID} = req.body;
+    const positionBody = req.body;
 
     try{
         const validatePosition = await Position.findOne({
             where: {
-                positionID,
-                name,
-            }
+                positionID: positionBody.positionID,
+            },
         });
 
         if(!validatePosition){
             return res.status(404).json({error: 'Puesto no encontrado'});
         }
 
-        const [updated] = await Position.update(
-            { name },
-            { description },
-            {departmentID},
-            {Where: {positionID}},
-        );
+        const updatePosition = await Position.update(positionBody,{
+            where: { positionID: positionBody.positionID },
+        });
 
-        if(!updated){
-            return res.status(404).json({error: 'El puesto no se ha podido actualizar'});
-        }
-
-        return res.status(200).json({success: true, message:'El puesto se actualizó correctamente'});
+        return res.status(200).json({success: true, message:'El puesto se actualizó correctamente', data: updatePosition});
     }catch(error){
         console.error('Error al actualizar el puesto', error.message);
         return res.status(500).json({error: 'Error al realizar actualizacion'});
