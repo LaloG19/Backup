@@ -9,6 +9,7 @@ import scheduleRoutes from './src/routes/schedule.routes.js';
 import adminRoutes from './src/routes/admin.routes.js';
 import absenceRoutes from './src/routes/absence.routes.js';
 import departmentRoutes from './src/routes/department.routes.js';
+import employeesRoutes from './src/routes/employees.routes.js';
 
 // Base de datos
 import { Connection } from './src/database/mysql.database.js';
@@ -41,7 +42,8 @@ const App = {
 		app.use('/api/v1/admins', adminRoutes);
 		app.use('/api/v1/absence', absenceRoutes);
 		app.use('/api/v1/departments', departmentRoutes);
-    
+		app.use('/api/v1/employees', employeesRoutes);
+		
 		app.use('/api/v1/test', (req, res) => {
 			res.status(200).json({ message: 'Test' });
 		});

@@ -42,42 +42,11 @@ export const createScheduleSchema = [
 ];
 
 export const updateScheduleSchema = [
-	body('entryTime')
-		.optional()
-		.isString()
-		.withMessage('The EntryTime must be in the format of date'),
-	body('exitTime')
-		.optional()
-		.isString()
-		.withMessage('The time must be a text string'),
-	body('monday')
-		.optional()
-		.isBoolean()
-		.withMessage('Monday, Just change if you need it'),
-	body('tuesday')
-		.optional()
-		.isBoolean()
-		.withMessage('Tuesday, Just change if you need it'),
-	body('wednesday')
-		.optional()
-		.isBoolean()
-		.withMessage('Wednesday, Just change if you need it'),
-	body('thursday')
-		.optional()
-		.isBoolean()
-		.withMessage('Thursday, Just change if you need it'),
-	body('friday')
-		.optional()
-		.isBoolean()
-		.withMessage('Friday, Just change if you need it'),
-	body('saturday')
-		.optional()
-		.isBoolean()
-		.withMessage('Saturday, Just change if you need it'),
-	body('sunday')
-		.optional()
-		.isBoolean()
-		.withMessage('Sunday, Just change if you need it'),
+	body('scheduleID')
+		.notEmpty()
+		.isInt()
+		.withMessage('The scheduleID must be an integer'),
+	...createScheduleSchema,
 ];
 
 export const deleteScheduleSchema = [
