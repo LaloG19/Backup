@@ -4,7 +4,7 @@ import { Employee } from '../models/employee.js';
 
 
 
-const getAbsence = async (req, res) => {
+export const getAbsence = async (req, res) => {
     try {
         const absence = await Absence.findAll();
         return res.status(200).json(absence);
@@ -15,26 +15,25 @@ const getAbsence = async (req, res) => {
 };
 
 
-export const findAbsenceByName = async (req, res) => {
-    const name = req.params.name;
+export const findAbsenceByID = async (req, res) => {
+    const employeeID = req.params.id;
 
     try {
-
-        const nameToSearch = await Employee.findOne({
+        const idToSearch = await Employee.findOne({
             where: {
-                name: {
-                    [Op.like]: `%${name}%`
+                employeeID: {
+                    [Op.like]: `%${employeeID}%`
                 }
             }
         });
 
-        if (!nameToSearch) {
+        if (!idToSearch) {
             return res.status(404).json({ error: 'Empleado no encontrado' });
         }
 
         const absence = await Absence.findAll({
             where: {
-                employeeID: nameToSearch.employeeID
+                employeeID: idToSearch.employeeID
             }
         });
 
@@ -64,7 +63,7 @@ export const createAbsence = async (req, res) => {
 };
 
 
-const updateAbsence = async (req, res) => {
+export const updateAbsence = async (req, res) => {
     const { absenceID, name, employeeID, scheduleID, absenceDate, justified } = req.body;
 
     try {
@@ -90,7 +89,7 @@ const updateAbsence = async (req, res) => {
 };
 
 
-const deleteAbsence = async (req, res) => {
+export const deleteAbsence = async (req, res) => {
     const { absenceID } = req.body;
 
     try {
@@ -114,7 +113,7 @@ const deleteAbsence = async (req, res) => {
 
 export const methods = {
     getAbsence,
-    findAbsenceByName,
+    findAbsenceByID,
     createAbsence,
     updateAbsence,
     deleteAbsence,
