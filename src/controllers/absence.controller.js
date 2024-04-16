@@ -51,7 +51,7 @@ export const findAbsenceByEmployeeID = async (req, res) => {
 	const { employeeID } = req.params;
 
 	try {
-		const employee = await Employee.findOne({
+		const employee = await Absence.findOne({
 			where: {
 				employeeID,
 			},
@@ -65,12 +65,6 @@ export const findAbsenceByEmployeeID = async (req, res) => {
 			where: {
 				employeeID: employee.employeeID,
 			},
-			include: [
-				{
-					model: Employee,
-					attributes: ['name', 'lastName'], 
-				},
-			],
 		});
 
 		if (!absences || absences.length === 0) {
@@ -82,7 +76,7 @@ export const findAbsenceByEmployeeID = async (req, res) => {
 		return res.status(200).json(absences);
 	} catch (error) {
 		console.error('Error in obtaining faults per enrollment:', error.message);
-		return res.status(500).json({ error: 'Internal server error' });
+		return res.status(500).json({ error: 'Error internal server' });
 	}
 };
 
@@ -180,6 +174,8 @@ export const deleteAbsenceByTrue = async (req, res) => {
         return res.status(500).json({ error: 'Error al realizar la eliminación' });
     }
 };
+
+
 
 export const methods = {
     getAbsence,
