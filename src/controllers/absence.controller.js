@@ -156,6 +156,25 @@ export const deleteAbsence = async (req, res) => {
     }
 };
 
+export const deleteAbsenceByTrue = async (req, res) => {
+    const { absenceID } = req.body;
+
+    try {
+        const absenceToDelete = await Absence.findByPk(absenceID);
+
+        if (!absenceToDelete) {
+            return res.status(404).json({ error: 'Falta no encontrada' });
+        }
+
+        await absenceToDelete.destroy(); // Eliminar la falta de la base de datos
+
+        return res.status(200).json({ success: true, message: 'Falta eliminada exitosamente' });
+    } catch (error) {
+        console.error('Error al eliminar la Falta', error.message);
+        return res.status(500).json({ error: 'Error al realizar la eliminación' });
+    }
+};
+
 export const methods = {
     getAbsence,
     findAbsenceByName,
@@ -163,5 +182,6 @@ export const methods = {
     updateAbsence,
     deleteAbsence,
     getAbsenceJustified,
+    deleteAbsenceByTrue,
     findAbsenceByEmployeeID
 };
