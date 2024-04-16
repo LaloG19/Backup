@@ -55,3 +55,11 @@ export const deleteAbsenceSchema = [
         .withMessage('Se requiere un ID para la falta a eliminar'),
 ];
 
+export const deleteAbsenceSchemaTrue = [
+    body('absenceID')
+        .isInt()
+        .withMessage('Se requiere un ID válido para la falta a eliminar')
+        .notEmpty()
+        .withMessage('Se requiere un ID para la falta a eliminar'),
+];
+
