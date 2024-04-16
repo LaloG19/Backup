@@ -209,4 +209,35 @@ router.delete('/delete',
     middleware.validateSchema,
     methods.deleteAbsence
 );
+
+/**
+ * @swagger
+ * /api/v1/absence/delete/true:
+ *   delete:
+ *     summary: Eliminar una falta existente
+ *     tags: [Absence]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               absenceID:
+ *                 type: integer
+ *                 description: ID de la falta a eliminar
+ *     responses:
+ *       200:
+ *         description: Falta eliminada correctamente
+ *       404:
+ *         description: La falta no se encontró
+ *       500:
+ *         description: Error al eliminar la falta
+ */
+router.delete('/delete/true/', 
+    schemas.deleteAbsenceSchemaTrue,
+    middleware.validateSchema,
+    methods.deleteAbsenceByTrue
+);
+
 export default router;
