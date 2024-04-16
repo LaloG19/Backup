@@ -1,19 +1,22 @@
 import { Op } from 'sequelize';
 import { Absence } from '../models/absence.js';
 import { Employee } from '../models/employee.js';
-
-
+import { Schedule } from '../models/schedule.model.js';
 
 export const getAbsence = async (req, res) => {
     try {
-        const absence = await Absence.findAll();
-        return res.status(200).json(absence);
+        const absences = await Absence.findAll({
+            include: [
+                { model: Employee },
+                { model: Schedule }
+            ]
+        });
+        return res.status(200).json(absences);
     } catch (error) {
-        console.error('No se encontraron las faltas', error.message);
+        console.error('Error al obtener las faltas', error.message);
         return res.status(500).json({ error: 'Error al encontrar las faltas' });
     }
 };
-
 
 export const findAbsenceByName = async (req, res) => {
     const name = req.params.name;
