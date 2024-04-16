@@ -47,35 +47,6 @@ export const findAbsenceByName = async (req, res) => {
     }
 };
 
-export const findAbsenceByName = async (req, res) => {
-    const name = req.params.name;
-
-    try {
-
-        const nameToSearch = await Employee.findOne({
-            where: {
-                name: {
-                    [Op.like]: `%${name}%`
-                }
-            }
-        });
-        
-        if (!nameToSearch) {
-            return res.status(404).json({ error: 'Empleado no encontrado' });
-        }
-
-        const absence = await Absence.findAll({
-            where: {
-                employeeID: nameToSearch.employeeID
-            }
-        });
-        return res.status(200).json(absence);
-    } catch (error) {
-        console.error('Error al encontrar las faltas por nombre', error.message);
-        return res.status(500).json({ error: 'Error al encontrar las faltas por nombre' });
-    }
-};
-
 export const findAbsenceByEmployeeID = async (req, res) => {
 	const { employeeID } = req.params;
 
