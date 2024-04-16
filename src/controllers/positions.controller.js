@@ -94,7 +94,7 @@ const deletePositions = async (req, res) =>{
         return res.status(200).json({success: true, message: 'Puesto eliminado con exito'});
     }catch(error){
         console.error('Error al eliminar el puesto', error.message);
-		return res.status(500).json({ error: 'Error al eliminar el puesto' });
+		return res.status(500).json({ error: 'Error al eliminar el puesto con id: ' + positionID });
     }
 } 
 
